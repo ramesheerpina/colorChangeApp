@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import { ListView, StyleSheet, Text} from 'react-native'
 import ColorButton from './components/colorButton'
+import ColorForm from './components/ColorForm'
 
   import plane from './plane.jpg'
 
@@ -20,11 +21,22 @@ export default class App extends React.Component {
     }
     //this is used to set state and change the color within that state
     this.changeColor = this.changeColor.bind(this)
+    this.newColor = this.newColor.bind(this)
   }
   //declaring a method to change the backgroundcolor
   changeColor(backgroundColor) {
     this.setState({backgroundColor})
   }
+
+  newColor(color) {
+    const availableColors = [
+      ...this.state.availableColors, color
+    ]
+    this.setState({
+      availableColors, dataSource: this.ds.cloneWithRows(availableColors)
+    })
+  }
+
   render () {
     const {backgroundColor, dataSource} = this.state
     return (
@@ -34,7 +46,7 @@ export default class App extends React.Component {
       renderRow= {(color) => (<ColorButton backgroundColor = {color} onSelect= {this.changeColor}/>
         )}
       renderHeader = {() => (
-        <Text style = {styles.header}>Color List</Text>
+        <ColorForm onNewColor = {this.newColor}/>
       )}>
       
         
