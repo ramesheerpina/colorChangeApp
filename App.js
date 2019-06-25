@@ -1,63 +1,46 @@
 import React, {Component} from 'react'
-import { 
-  Dimensions,
-  Image,
-  StyleSheet,
-  AppRegistry, 
-  Text, 
-  View,
-  StatusBar} from 'react-native'
+import {Text, View, StyleSheet} from 'react-native'
 
   import plane from './plane.jpg'
 
 export default class App extends React.Component {
+  constructor () {
+    super()
+    this.state = {
+      backgroundColor: 'blue'
+    }
+    //this is used to set state and change the color within that state
+    this.changeColor = this.changeColor.bind(this)
+  }
+  //declaring a method to change the backgroundcolor
+  changeColor(backgroundColor) {
+    this.setState({backgroundColor})
+  }
   render () {
+    const {backgroundColor} = this.state
     return (
-      <View style = {styles.container}>
-        <StatusBar hidden = {true}></StatusBar>
-        <Text style={[styles.defaultText]}>Welcome Aboard
-        </Text>
-        <Text style={[styles.selectedText]}>Air Canada
-        </Text>
-        <View>
-          <Image style = {styles.pic} source = {plane}>
-          </Image>
-        </View>
+      //getting the background color from state that was declared in constructor above
+      <View style = {[styles.container, {backgroundColor}]}>
+        <Text style = {styles.button} onPress = {()=>this.changeColor('green')}>Green</Text>
+        <Text style = {styles.button} onPress = {()=>this.changeColor('red')}>Red</Text>
       </View>
     )
   }
 }
 
-const styles = StyleSheet.create ({
-  container: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  pic : {
-    backgroundColor: 'white',
-    borderRadius: 100,
-    width: Dimensions.get('window').width, 
-    height: 160,
-    resizeMode: 'cover',
-    
-  },
-  defaultText: {
-    fontSize: 22,
-    padding: 30,
-    color: 'red',
-    margin: 5
-  },
-  selectedText: {
-    backgroundColor: 'black',
-    fontSize: 22,
+const styles = StyleSheet.create (
+  {
+  container : {
+    flex: 1,
     justifyContent: 'center',
-    padding: 20,
-    paddingLeft: 141,
-    paddingRight: 141,
-    color: 'white',
-    fontWeight: 'bold'
+    alignItems: 'center'
+  },
+  button : {
+    fontSize: 30,
+    padding : 10,
+    borderWidth: 2,
+    borderRadius: 10,
+    alignSelf: 'stretch',
+    textAlign: 'center'
   }
 })
-
-AppRegistry.registerComponent('helloworld', () => App)
