@@ -13,14 +13,7 @@ export default class App extends React.Component {
     const availableColors = [
       'Red',
       'Green',
-      'Yellow',
-      'Salmon',
-      'Pink',
-      'Violet',
-      'Indigo',
-      'rgb(255, 0, 200)',
-      'rgb(255, 100, 255)',
-      'rgb(255, 200, 255)',
+      'Yellow'
     ]
     this.state = {
       backgroundColor: 'blue', availableColors, dataSource: this.ds.cloneWithRows(availableColors)
